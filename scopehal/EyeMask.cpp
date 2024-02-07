@@ -37,6 +37,11 @@
 #include "EyeWaveform.h"
 #include "EyeMask.h"
 
+//WORKAROUND for Cairo >=1.16 support
+#if (CAIROMM_MINOR_VERSION >= 16)
+#define FORMAT_ARGB32 Surface::Format::ARGB32
+#endif
+
 using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
