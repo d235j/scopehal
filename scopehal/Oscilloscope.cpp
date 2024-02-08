@@ -881,7 +881,7 @@ bool Oscilloscope::HasTimebaseControls()
 /**
 	@brief Converts 8-bit ADC samples to floating point
  */
-void Oscilloscope::Convert8BitSamples(float* pout, int8_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert8BitSamples(float* pout, const int8_t* pin, float gain, float offset, size_t count)
 {
 	//Divide large waveforms (>1M points) into blocks and multithread them
 	//TODO: tune split
@@ -940,7 +940,7 @@ void Oscilloscope::Convert8BitSamples(float* pout, int8_t* pin, float gain, floa
 /**
 	@brief Generic backend for Convert8BitSamples()
  */
-void Oscilloscope::Convert8BitSamplesGeneric(float* pout, int8_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert8BitSamplesGeneric(float* pout, const int8_t* pin, float gain, float offset, size_t count)
 {
 	for(unsigned int k=0; k<count; k++)
 		pout[k] = pin[k] * gain - offset;
@@ -951,7 +951,7 @@ void Oscilloscope::Convert8BitSamplesGeneric(float* pout, int8_t* pin, float gai
 	@brief Optimized version of Convert8BitSamples()
  */
 __attribute__((target("avx2")))
-void Oscilloscope::Convert8BitSamplesAVX2(float* pout, int8_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert8BitSamplesAVX2(float* pout, const int8_t* pin, float gain, float offset, size_t count)
 {
 	unsigned int end = count - (count % 32);
 
@@ -1013,7 +1013,7 @@ void Oscilloscope::Convert8BitSamplesAVX2(float* pout, int8_t* pin, float gain, 
 /**
 	@brief Converts Unsigned 8-bit ADC samples to floating point
  */
-void Oscilloscope::ConvertUnsigned8BitSamples(float* pout, uint8_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::ConvertUnsigned8BitSamples(float* pout, const uint8_t* pin, float gain, float offset, size_t count)
 {
 	//Divide large waveforms (>1M points) into blocks and multithread them
 	//TODO: tune split
@@ -1072,7 +1072,7 @@ void Oscilloscope::ConvertUnsigned8BitSamples(float* pout, uint8_t* pin, float g
 /**
 	@brief Generic backend for ConvertUnsigned8BitSamples()
  */
-void Oscilloscope::ConvertUnsigned8BitSamplesGeneric(float* pout, uint8_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::ConvertUnsigned8BitSamplesGeneric(float* pout, const uint8_t* pin, float gain, float offset, size_t count)
 {
 	for(unsigned int k=0; k<count; k++)
 		pout[k] = pin[k] * gain - offset;
@@ -1083,7 +1083,7 @@ void Oscilloscope::ConvertUnsigned8BitSamplesGeneric(float* pout, uint8_t* pin, 
 	@brief Optimized version of ConvertUnsigned8BitSamples()
  */
 __attribute__((target("avx2")))
-void Oscilloscope::ConvertUnsigned8BitSamplesAVX2(float* pout, uint8_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::ConvertUnsigned8BitSamplesAVX2(float* pout, const uint8_t* pin, float gain, float offset, size_t count)
 {
 	unsigned int end = count - (count % 32);
 
@@ -1148,7 +1148,7 @@ void Oscilloscope::ConvertUnsigned8BitSamplesAVX2(float* pout, uint8_t* pin, flo
 /**
 	@brief Converts 16-bit ADC samples to floating point
  */
-void Oscilloscope::Convert16BitSamples(float* pout, int16_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert16BitSamples(float* pout, const int16_t* pin, float gain, float offset, size_t count)
 {
 	//Divide large waveforms (>1M points) into blocks and multithread them
 	//TODO: tune split
@@ -1233,7 +1233,7 @@ void Oscilloscope::Convert16BitSamples(float* pout, int16_t* pin, float gain, fl
 /**
 	@brief Converts raw ADC samples to floating point
  */
-void Oscilloscope::Convert16BitSamplesGeneric(float* pout, int16_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert16BitSamplesGeneric(float* pout, const int16_t* pin, float gain, float offset, size_t count)
 {
 	for(size_t j=0; j<count; j++)
 		pout[j] = gain*pin[j] - offset;
@@ -1241,7 +1241,7 @@ void Oscilloscope::Convert16BitSamplesGeneric(float* pout, int16_t* pin, float g
 
 #ifdef __x86_64__
 __attribute__((target("avx2")))
-void Oscilloscope::Convert16BitSamplesAVX2(float* pout, int16_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert16BitSamplesAVX2(float* pout, const int16_t* pin, float gain, float offset, size_t count)
 {
 	size_t end = count - (count % 32);
 
@@ -1298,7 +1298,7 @@ void Oscilloscope::Convert16BitSamplesAVX2(float* pout, int16_t* pin, float gain
 }
 
 __attribute__((target("avx2,fma")))
-void Oscilloscope::Convert16BitSamplesFMA(float* pout, int16_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert16BitSamplesFMA(float* pout, const int16_t* pin, float gain, float offset, size_t count)
 {
 	size_t end = count - (count % 64);
 
@@ -1373,7 +1373,7 @@ void Oscilloscope::Convert16BitSamplesFMA(float* pout, int16_t* pin, float gain,
 }
 
 __attribute__((target("avx512f")))
-void Oscilloscope::Convert16BitSamplesAVX512F(float* pout, int16_t* pin, float gain, float offset, size_t count)
+void Oscilloscope::Convert16BitSamplesAVX512F(float* pout, const int16_t* pin, float gain, float offset, size_t count)
 {
 	size_t end = count - (count % 64);
 
