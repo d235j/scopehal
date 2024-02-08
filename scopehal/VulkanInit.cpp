@@ -419,9 +419,9 @@ bool VulkanInit(bool skipGLFW)
 				const size_t g = k*m;
 
 				LogDebug("Max image dim 2D:       %u\n", limits.maxImageDimension2D);
-				LogDebug("Max storage buf range:  %lu MB\n", limits.maxStorageBufferRange / m);
-				LogDebug("Max mem alloc:          %lu MB\n", limits.maxMemoryAllocationCount / m);
-				LogDebug("Max compute shared mem: %lu KB\n", limits.maxComputeSharedMemorySize / k);
+				LogDebug("Max storage buf range:  %zu MB\n", limits.maxStorageBufferRange / m);
+				LogDebug("Max mem alloc:          %zu MB\n", limits.maxMemoryAllocationCount / m);
+				LogDebug("Max compute shared mem: %zu KB\n", limits.maxComputeSharedMemorySize / k);
 				LogDebug("Max compute grp count:  %u x %u x %u\n",
 					limits.maxComputeWorkGroupCount[0],
 					limits.maxComputeWorkGroupCount[1],

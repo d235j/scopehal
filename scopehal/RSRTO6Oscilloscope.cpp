@@ -765,7 +765,7 @@ bool RSRTO6Oscilloscope::AcquireData()
 		if(!IsChannelEnabled(i))
 			continue;
 
-		LogDebug("Starting acquisition phase for ch%ld\n", i);
+		LogDebug("Starting acquisition phase for ch%zu\n", i);
 
 		auto cap = new UniformAnalogWaveform;
 		size_t length = AcquireHeader(cap, m_channels[i]->GetHwname());
