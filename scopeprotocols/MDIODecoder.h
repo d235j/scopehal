@@ -83,7 +83,7 @@ class MDIODecoder : public PacketDecoder
 public:
 	MDIODecoder(const std::string& color);
 
-	virtual void Refresh();
+	virtual void Refresh() override;
 
 	static std::string GetProtocolName();
 
@@ -95,12 +95,12 @@ public:
 		PHY_TYPE_VSC8512
 	};
 
-	virtual std::vector<std::string> GetHeaders();
+	virtual std::vector<std::string> GetHeaders() override;
 
-	virtual bool CanMerge(Packet* first, Packet* cur, Packet* next);
-	virtual Packet* CreateMergedHeader(Packet* pack, size_t i);
+	virtual bool CanMerge(Packet* first, Packet* cur, Packet* next) override;
+	virtual Packet* CreateMergedHeader(Packet* pack, size_t i) override;
 
-	virtual bool ValidateChannel(size_t i, StreamDescriptor stream);
+	virtual bool ValidateChannel(size_t i, StreamDescriptor stream) override;
 
 	PROTOCOL_DECODER_INITPROC(MDIODecoder)
 
