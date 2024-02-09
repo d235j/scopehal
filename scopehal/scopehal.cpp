@@ -100,6 +100,7 @@
 #include <wordexp.h>
 #include <dirent.h>
 #else
+#include <ws2tcpip.h>
 #include <windows.h>
 #include <shlwapi.h>
 #include <shlobj.h>
