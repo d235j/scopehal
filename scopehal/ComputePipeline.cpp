@@ -170,7 +170,7 @@ void ComputePipeline::DeferredInit()
 		m_descriptorPool = make_unique<vk::raii::DescriptorPool>(*g_vkComputeDevice, poolInfo);
 
 		//Set up descriptors for our buffers
-		vk::DescriptorSetAllocateInfo dsinfo(**m_descriptorPool, **m_descriptorSetLayout);
+		vk::DescriptorSetAllocateInfo dsinfo(static_cast<VkDescriptorPool>(**m_descriptorPool), **m_descriptorSetLayout);
 		m_descriptorSet = make_unique<vk::raii::DescriptorSet>(
 			std::move(vk::raii::DescriptorSets(*g_vkComputeDevice, dsinfo).front()));
 	}
