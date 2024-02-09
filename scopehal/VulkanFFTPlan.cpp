@@ -128,10 +128,10 @@ VulkanFFTPlan::VulkanFFTPlan(
 	//Extract raw handles of all of our Vulkan objects
 	m_physicalDevice = **g_vkComputePhysicalDevice;
 	m_device = **g_vkComputeDevice;
-	VkCommandPool rpool = static_cast<VkCommandPool>(*pool);
+	VkCommandPool rpool = *pool;
 	VkQueue queue = **queuelock;
-	m_rawfence = static_cast<VkFence>(*m_fence);
-	m_pipelineCache = static_cast<VkPipelineCache>(**g_pipelineCacheMgr->Lookup(cacheKey + ".spv", VkFFTGetVersion()));
+	m_rawfence = *m_fence;
+	m_pipelineCache = **g_pipelineCacheMgr->Lookup(cacheKey + ".spv", VkFFTGetVersion());
 
 	if(g_hasDebugUtils)
 	{
@@ -208,8 +208,8 @@ void VulkanFFTPlan::AppendForward(
 	dataOut.PrepareForGpuAccess();
 
 	//Extract raw handles of all of our Vulkan objects
-	VkBuffer inbuf = static_cast<VkBuffer>(dataIn.GetBuffer());
-	VkBuffer outbuf = static_cast<VkBuffer>(dataOut.GetBuffer());
+	VkBuffer inbuf = dataIn.GetBuffer();
+	VkBuffer outbuf = dataOut.GetBuffer();
 	VkCommandBuffer cmd = *cmdBuf;
 
 	VkFFTLaunchParams params;
@@ -234,8 +234,8 @@ void VulkanFFTPlan::AppendReverse(
 	dataOut.PrepareForGpuAccess();
 
 	//Extract raw handles of all of our Vulkan objects
-	VkBuffer inbuf = static_cast<VkBuffer>(dataIn.GetBuffer());
-	VkBuffer outbuf = static_cast<VkBuffer>(dataOut.GetBuffer());
+	VkBuffer inbuf = dataIn.GetBuffer();
+	VkBuffer outbuf = dataOut.GetBuffer();
 	VkCommandBuffer cmd = *cmdBuf;
 
 	VkFFTLaunchParams params;
