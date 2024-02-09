@@ -892,20 +892,20 @@ bool VulkanInit(bool skipGLFW)
 		g_vkComputeDevice->setDebugUtilsObjectNameEXT(
 			vk::DebugUtilsObjectNameInfoEXT(
 				vk::ObjectType::eDevice,
-				reinterpret_cast<int64_t>(static_cast<VkDevice>(**g_vkComputeDevice)),
+				reinterpret_cast<uint64_t>(static_cast<VkDevice>(**g_vkComputeDevice)),
 				"g_vkComputeDevice"));
 
 		g_vkComputeDevice->setDebugUtilsObjectNameEXT(
 			vk::DebugUtilsObjectNameInfoEXT(
 				vk::ObjectType::eCommandBuffer,
-				reinterpret_cast<int64_t>(static_cast<VkCommandBuffer>(**g_vkTransferCommandBuffer)),
+				reinterpret_cast<uint64_t>(static_cast<VkCommandBuffer>(**g_vkTransferCommandBuffer)),
 				"g_vkTransferCommandBuffer"));
 
 		//For some reason this doesn't work?
 		/*g_vkComputeDevice->setDebugUtilsObjectNameEXT(
 			vk::DebugUtilsObjectNameInfoEXT(
 				vk::ObjectType::ePhysicalDevice,
-				reinterpret_cast<int64_t>(static_cast<VkPhysicalDevice>(**g_vkComputePhysicalDevice)),
+				reinterpret_cast<uint64_t>(static_cast<VkPhysicalDevice>(**g_vkComputePhysicalDevice)),
 				"g_vkComputePhysicalDevice"));*/
 	}
 
