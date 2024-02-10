@@ -69,6 +69,8 @@
 //MSVC compatibility
 #if defined(_MSC_VER)
 #define ATTR_NOINLINE __declspec(noinline)
+#include <BaseTsd.h>
+typedef SSIZE_T ssize_t;
 #else
 #define ATTR_NOINLINE __attribute__((noinline))
 #endif
