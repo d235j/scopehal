@@ -34,7 +34,6 @@
  */
 #include "scopehal.h"
 #include "scopehal-version.h"
-#include <libgen.h>
 
 #include "AgilentOscilloscope.h"
 #include "HP662xAPowerSupply.h"
@@ -100,12 +99,11 @@
 #include <wordexp.h>
 #include <dirent.h>
 #else
-#include <ws2tcpip.h>
-#include <windows.h>
 #include <shlwapi.h>
 #include <shlobj.h>
 #endif
 
+#include <libgen.h>
 using namespace std;
 
 #ifdef __x86_64__

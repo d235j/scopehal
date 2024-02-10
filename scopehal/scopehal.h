@@ -38,6 +38,10 @@
 
 #ifdef _WIN32
 
+// These prevent windows.h from pulling in excessive definitions
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN
+
 // These must be included first, as ws2tcpip.h pulls in winsock2.h, which overrides WinSock1 features in windows.h
 #include <ws2tcpip.h>
 #include <windows.h>

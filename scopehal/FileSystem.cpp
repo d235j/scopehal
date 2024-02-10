@@ -30,6 +30,8 @@
 #include "FileSystem.h"
 
 #ifdef _WIN32
+#define NOMINMAX
+#define WIN32_LEAN
 #include <windows.h>
 #include <shlwapi.h>
 #include <fileapi.h>
