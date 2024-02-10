@@ -464,8 +464,7 @@ public:
 	/**
 		@brief Copies our content from another AcceleratorBuffer
 	 */
-	 __attribute__((noinline))
-	void CopyFrom(const AcceleratorBuffer<T>& rhs)
+	ATTR_NOINLINE void CopyFrom(const AcceleratorBuffer<T>& rhs)
 	{
 		//Copy placement hints from the other instance, then resize to match
 		SetCpuAccessHint(rhs.m_cpuAccessHint);
@@ -510,8 +509,7 @@ protected:
 	/**
 		@brief Reallocates the buffer so that it contains exactly size elements
 	 */
-	__attribute__((noinline))
-	void Reallocate(size_t size)
+	ATTR_NOINLINE void Reallocate(size_t size)
 	{
 		if(size == 0)
 			return;
@@ -569,12 +567,12 @@ protected:
 					//so disable the warning.
 					else
 					{
-						#ifdef(__GNUC__)
+						#ifdef __GNUC__
 						#pragma GCC diagnostic push
 						#pragma GCC diagnostic ignored "-Wclass-memaccess"
 						#endif
 						memcpy(m_cpuPtr, pOld, m_size * sizeof(T));
-						#ifdef(__GNUC__)
+						#ifdef __GNUC__
 						#pragma GCC diagnostic pop
 						#endif
 					}
@@ -1064,8 +1062,7 @@ protected:
 	/**
 		@brief Allocates a buffer for CPU access
 	 */
-	__attribute__((noinline))
-	void AllocateCpuBuffer(size_t size)
+	ATTR_NOINLINE void AllocateCpuBuffer(size_t size)
 	{
 		if(size == 0)
 			LogFatal("AllocateCpuBuffer with size zero (invalid)\n");
@@ -1181,8 +1178,7 @@ protected:
 		By this point AllocateCpuBuffer() has been called so m_cpuMemoryType points to the type of the new buffer,
 		not the one we're getting rid of.
 	 */
-	__attribute__((noinline))
-	void FreeCpuPointer(T* ptr, MemoryType type, size_t size)
+	ATTR_NOINLINE void FreeCpuPointer(T* ptr, MemoryType type, size_t size)
 	{
 		//Call destructors iff type is not trivially copyable
 		if(!std::is_trivially_copyable<T>::value)
@@ -1225,8 +1221,7 @@ protected:
 		By this point AllocateCpuBuffer() has been called so m_cpuMemoryType points to the type of the new buffer,
 		not the one we're getting rid of.
 	 */
-	__attribute__((noinline))
-	void FreeCpuPointer(T* ptr, std::unique_ptr<vk::raii::DeviceMemory>& buf, MemoryType type, size_t size)
+	ATTR_NOINLINE void FreeCpuPointer(T* ptr, std::unique_ptr<vk::raii::DeviceMemory>& buf, MemoryType type, size_t size)
 	{
 		switch(type)
 		{
@@ -1242,8 +1237,7 @@ protected:
 	/**
 		@brief Allocates physical memory for GPU access
 	 */
-	__attribute__((noinline))
-	void AllocateGpuBuffer(size_t size)
+	ATTR_NOINLINE void AllocateGpuBuffer(size_t size)
 	{
 		assert(std::is_trivially_copyable<T>::value);
 
@@ -1279,8 +1273,7 @@ protected:
 	/**
 		@brief Pushes our friendly name to the underlying Vulkan objects
 	 */
-	__attribute__((noinline))
-	void UpdateGpuNames()
+	ATTR_NOINLINE void UpdateGpuNames()
 	{
 		std::string sname = m_name;
 		if(sname.empty())
@@ -1306,8 +1299,7 @@ protected:
 	/**
 		@brief Pushes our friendly name to the underlying Vulkan objects
 	 */
-	__attribute__((noinline))
-	void UpdateCpuNames()
+	ATTR_NOINLINE void UpdateCpuNames()
 	{
 		std::string sname = m_name;
 		if(sname.empty())

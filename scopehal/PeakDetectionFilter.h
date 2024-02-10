@@ -62,8 +62,7 @@ public:
 	{ return m_peaks; }
 
 	template<class T>
-	__attribute__((noinline))
-	void FindPeaks(T* cap, int64_t max_peaks, float search_hz)
+	ATTR_NOINLINE void FindPeaks(T* cap, int64_t max_peaks, float search_hz)
 	{
 		//input must be analog
 		AssertTypeIsAnalogWaveform(cap);

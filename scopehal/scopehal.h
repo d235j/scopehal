@@ -66,6 +66,13 @@
 
 #include <vulkan/vulkan_raii.hpp>
 
+//MSVC compatibility
+#if defined(_MSC_VER)
+#define ATTR_NOINLINE __declspec(noinline)
+#else
+#define ATTR_NOINLINE __attribute__((noinline))
+#endif
+
 //must be early because a lot of inline methods in headers rely on these
 #ifdef __x86_64__
 extern bool g_hasFMA;

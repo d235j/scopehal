@@ -439,7 +439,7 @@ typedef UniformWaveform<float>					UniformAnalogWaveform;
 typedef SparseWaveform< std::vector<bool> > 	SparseDigitalBusWaveform;
 
 //Make sure inline helpers aren't warned about if unused
-#ifdef(__GNUC__)
+#ifdef __GNUC__
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-function"
 #endif
@@ -629,7 +629,7 @@ std::optional<bool> GetDigitalValueAtTime(WaveformBase* waveform, int64_t time_f
  */
 std::optional<std::string> GetProtocolValueAtTime(WaveformBase* waveform, int64_t time_fs);
 
-#ifdef(__GNUC__)
+#ifdef __GNUC__
 #pragma GCC diagnostic pop
 #endif
 
