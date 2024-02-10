@@ -64,12 +64,7 @@
 
 #include "config.h"
 
-//Vulkan is now a mandatory dependency, so no compile time enable flag
-//(disable some warnings in Vulkan headers that we can't do anything about)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wshadow"
 #include <vulkan/vulkan_raii.hpp>
-#pragma GCC diagnostic pop
 
 //must be early because a lot of inline methods in headers rely on these
 #ifdef __x86_64__

@@ -569,12 +569,14 @@ protected:
 					//so disable the warning.
 					else
 					{
+						#ifdef(__GNUC__)
 						#pragma GCC diagnostic push
 						#pragma GCC diagnostic ignored "-Wclass-memaccess"
-
+						#endif
 						memcpy(m_cpuPtr, pOld, m_size * sizeof(T));
-
+						#ifdef(__GNUC__)
 						#pragma GCC diagnostic pop
+						#endif
 					}
 				}
 
