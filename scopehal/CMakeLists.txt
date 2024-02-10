@@ -57,7 +57,7 @@ endif()
 
 # Apple has their own idea about stat structs
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-	add_compile_options(-Dst_mtim=st_mtimespec)
+	add_compile_definitions(st_mtim=st_mtimespec)
 endif()
 
 set(SCOPEHAL_SOURCES

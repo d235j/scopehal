@@ -37,7 +37,7 @@
 #define TestWaveformSource_h
 
 #include "../scopehal/AlignedAllocator.h"
-#ifndef _APPLE_SILICON
+#if !defined(_APPLE_SILICON) && !defined(_MSC_VER)
 #include <ffts.h>
 #endif
 #include <random>

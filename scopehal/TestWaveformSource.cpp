@@ -43,7 +43,7 @@ using namespace std;
 TestWaveformSource::TestWaveformSource(minstd_rand& rng)
 	: m_rng(rng)
 {
-#ifndef _APPLE_SILICON
+#if !defined(_APPLE_SILICON) && !defined(_MSC_VER)
 	m_forwardPlan = NULL;
 	m_reversePlan = NULL;
 
@@ -58,7 +58,7 @@ TestWaveformSource::TestWaveformSource(minstd_rand& rng)
 
 TestWaveformSource::~TestWaveformSource()
 {
-#ifndef _APPLE_SILICON
+#if !defined(_APPLE_SILICON) && !defined(_MSC_VER)
 	if(m_forwardPlan)
 		ffts_free(m_forwardPlan);
 	if(m_reversePlan)
