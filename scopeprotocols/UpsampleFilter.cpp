@@ -175,7 +175,7 @@ void UpsampleFilter::Refresh(vk::raii::CommandBuffer& cmdBuf, shared_ptr<QueueHa
 		//Logically, we upsample by inserting zeroes, then convolve with the sinc filter.
 		//Optimization: don't actually waste time multiplying by zero
 		#pragma omp parallel for
-		for(size_t i=0; i < imax; i++)
+		for(int64_t i=0; i < imax; i++)
 		{
 			size_t offset = i * upsample_factor;
 			for(size_t j=0; j<upsample_factor; j++)

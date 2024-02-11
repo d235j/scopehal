@@ -305,7 +305,7 @@ void TestWaveformSource::DegradeSerialData(
 	normal_distribution<> noise(0, noise_amplitude);
 
 	// ffts is not available on apple silicon, so for now we only apply noise there
-#ifndef _APPLE_SILICON
+#if !defined(_APPLE_SILICON) && !defined(_MSC_VER)
 	//Prepare for second pass: reallocate FFT buffer if sample depth changed
 	const size_t npoints = next_pow2(depth);
 	size_t nouts = npoints/2 + 1;

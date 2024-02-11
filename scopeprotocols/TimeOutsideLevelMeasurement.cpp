@@ -120,7 +120,9 @@ void TimeOutsideLevelMeasurement::Refresh()
 		{
 			if (processhigh == true)
 			{
+#ifndef _MSC_VER
 				#pragma omp task
+#endif
 				{
 					size_t i = 0;
 					int64_t temp1 = 0;
@@ -152,7 +154,9 @@ void TimeOutsideLevelMeasurement::Refresh()
 
 			if (processlow == true)
 			{
+#ifndef _MSC_VER
 				#pragma omp task
+#endif
 				{
 					size_t i = 0;
 					int64_t temp1 = 0;
@@ -186,7 +190,7 @@ void TimeOutsideLevelMeasurement::Refresh()
 	else if (sadin)
 	{
 		#pragma omp parallel for
-		for(size_t i = 0; i < length; i++)
+		for(int64_t i = 0; i < length; i++)
 		{
 			//Simply sum durations of all samples with value greater than the high threshold
 			if ((processhigh == true) && (sadin->m_samples[i] > highlevel))

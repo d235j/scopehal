@@ -601,7 +601,7 @@ bool PicoOscilloscope::AcquireData()
 
 			//Now that we have the waveform data, unpack it into individual channels
 			#pragma omp parallel for
-			for(size_t j=0; j<8; j++)
+			for(int64_t j=0; j<8; j++)
 			{
 				//Bitmask for this digital channel
 				int16_t mask = (1 << j);
@@ -696,7 +696,7 @@ bool PicoOscilloscope::AcquireData()
 		//Fallback path
 		//Process analog captures in parallel
 		#pragma omp parallel for
-		for(size_t i=0; i<awfms.size(); i++)
+		for(int64_t i=0; i<awfms.size(); i++)
 		{
 			auto cap = awfms[i];
 			cap->PrepareForCpuAccess();

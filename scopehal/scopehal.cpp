@@ -98,12 +98,12 @@
 #include <sys/stat.h>
 #include <wordexp.h>
 #include <dirent.h>
+#include <libgen.h>
 #else
 #include <shlwapi.h>
 #include <shlobj.h>
 #endif
 
-#include <libgen.h>
 #include <filesystem>
 
 using namespace std;
@@ -684,11 +684,11 @@ void InitializeSearchPaths()
 	}
 	//On Windows, search in %appdata% and %localappdata%
 #elif defined(_WIN32)
-	const char *localappdata = getenv("LOCALAPPDATA")
+	const char* localappdata = getenv("LOCALAPPDATA");
 	if(localappdata != nullptr) {
 		g_searchPaths.push_back(filesystem::path(localappdata) / "/scopehal");
 	}
-	const char *appdata = getenv("APPDATA")
+	const char* appdata = getenv("APPDATA");
 	if(appdata != nullptr) {
 		g_searchPaths.push_back(filesystem::path(appdata) / "/scopehal");
 	}

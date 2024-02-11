@@ -894,7 +894,7 @@ void Oscilloscope::Convert8BitSamples(float* pout, const int8_t* pin, float gain
 		blocksize = blocksize - (blocksize % 32);
 
 		#pragma omp parallel for
-		for(size_t i=0; i<numblocks; i++)
+		for(int64_t i=0; i<numblocks; i++)
 		{
 			//Last block gets any extra that didn't divide evenly
 			size_t nsamp = blocksize;
@@ -1026,7 +1026,7 @@ void Oscilloscope::ConvertUnsigned8BitSamples(float* pout, const uint8_t* pin, f
 		blocksize = blocksize - (blocksize % 32);
 
 		#pragma omp parallel for
-		for(size_t i=0; i<numblocks; i++)
+		for(int64_t i=0; i<numblocks; i++)
 		{
 			//Last block gets any extra that didn't divide evenly
 			size_t nsamp = blocksize;
@@ -1161,7 +1161,7 @@ void Oscilloscope::Convert16BitSamples(float* pout, const int16_t* pin, float ga
 		blocksize = blocksize - (blocksize % 64);
 
 		#pragma omp parallel for
-		for(size_t i=0; i<numblocks; i++)
+		for(int64_t i=0; i<numblocks; i++)
 		{
 			//Last block gets any extra that didn't divide evenly
 			size_t nsamp = blocksize;

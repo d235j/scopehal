@@ -2619,7 +2619,11 @@ map<int, SparseDigitalWaveform*> LeCroyOscilloscope::ProcessDigitalWaveform(stri
 	tm now;
 	time_t tnow;
 	time(&tnow);
+#ifdef _WIN32
+	localtime_s(&now, &tnow);
+#else
 	localtime_r(&tnow, &now);
+#endif
 
 	//Convert Jan 1 2000 in the client's local time zone (assuming this is the same as instrument time) to Unix time.
 	//Note that the instrument time zone conversion seems to be broken and not handle DST offsets right.

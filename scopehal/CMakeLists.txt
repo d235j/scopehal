@@ -50,11 +50,6 @@ endif()
 
 configure_file(scopehal-version.h.in scopehal-version.h)
 
-# Additional Windows/Linux libraries
-if(WIN32)
-	set(WIN_LIBS shlwapi)
-endif()
-
 # Apple has their own idea about stat structs
 if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
 	add_compile_definitions(st_mtim=st_mtimespec)
@@ -225,8 +220,14 @@ target_link_libraries(scopehal
 	glslang::glslang
 	glslang::SPIRV
 	glfw
-	${WIN_LIBS}
 	)
+
+if(WIN32)
+	target_link_libraries(scopehal shlwapi
+	if(MSVC)
+		target_link_libraries(scopehal Vulkan::SPIRV-Tools)
+	endif()
+endif()
 
 if(LXI_FOUND)
 	target_link_libraries(scopehal

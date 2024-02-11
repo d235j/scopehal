@@ -167,7 +167,7 @@ void FSKDecoder::Refresh()
 	if(hys == 0)
 	{
 		#pragma omp parallel for
-		for(size_t i=0; i<len; i++)
+		for(int64_t i=0; i<len; i++)
 			cap->m_samples[i] = din->m_samples[i] > midpoint;
 	}
 	else

@@ -35,6 +35,10 @@
 #ifndef TimeOutsideLevelMeasurement_h
 #define TimeOutsideLevelMeasurement_h
 
+#ifdef _MSC_VER
+#undef HIGH_LEVEL
+#endif
+
 class TimeOutsideLevelMeasurement : public Filter
 {
 public:

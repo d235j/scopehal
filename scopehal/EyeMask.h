@@ -35,6 +35,12 @@
 #ifndef EyeMask_h
 #define EyeMask_h
 
+#ifdef _MSC_VER
+#undef IN
+#undef OUT
+#undef WINDING
+#endif
+
 #include <cairomm/cairomm.h>
 
 class EyeDecoder2;

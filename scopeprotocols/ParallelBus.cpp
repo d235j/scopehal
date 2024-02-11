@@ -114,7 +114,7 @@ void ParallelBus::Refresh()
 	cap->Resize(len);
 	cap->CopyTimestamps(inputs[0]);
 	#pragma omp parallel for
-	for(size_t i=0; i<len; i++)
+	for(int64_t i=0; i<len; i++)
 	{
 		for(int j=0; j<width; j++)
 			cap->m_samples[i].push_back(inputs[j]->m_samples[i]);

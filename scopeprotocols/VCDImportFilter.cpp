@@ -155,7 +155,11 @@ void VCDImportFilter::OnFileNameChanged()
 					tm now;
 					time_t tnow;
 					time(&tnow);
+#ifdef WIN32
+					localtime_s(&now, &tnow);
+#else
 					localtime_r(&tnow, &now);
+#endif
 
 					tm stamp;
 

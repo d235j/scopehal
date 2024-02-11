@@ -34,7 +34,12 @@
  */
 #include "ScopehalUtil.h"
 
-#ifndef _WIN32
+#ifdef _WIN32
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <profileapi.h>
+#else
 #include <time.h>
 #endif
 

@@ -101,7 +101,7 @@ public:
 protected:
 	std::minstd_rand& m_rng;
 
-#ifndef _APPLE_SILICON
+#if !defined(_APPLE_SILICON) && !defined(_MSC_VER)
 	//FFT stuff
 	AlignedAllocator<float, 32> m_allocator;
 	ffts_plan_t* m_forwardPlan;

@@ -35,6 +35,7 @@
 
 #include <vulkan/vulkan_raii.hpp>
 
+#include "scopehal.h"
 #include "log.h"
 #include "QueueManager.h"
 

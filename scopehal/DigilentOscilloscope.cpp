@@ -408,7 +408,7 @@ bool DigilentOscilloscope::AcquireData()
 
 	//Process analog captures in parallel
 	#pragma omp parallel for
-	for(size_t i=0; i<awfms.size(); i++)
+	for(int64_t i=0; i<awfms.size(); i++)
 	{
 		auto cap = awfms[i];
 
