@@ -223,7 +223,7 @@ target_link_libraries(scopehal
 	)
 
 if(WIN32)
-	target_link_libraries(scopehal shlwapi
+	target_link_libraries(scopehal shlwapi)
 	if(MSVC)
 		target_link_libraries(scopehal Vulkan::SPIRV-Tools)
 	endif()
