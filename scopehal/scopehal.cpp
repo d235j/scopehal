@@ -104,6 +104,8 @@
 #endif
 
 #include <libgen.h>
+#include <filesystem>
+
 using namespace std;
 
 #ifdef __x86_64__
@@ -124,7 +126,7 @@ bool g_gpuFilterEnabled = false;
 ///@brief True if scope drivers can use GPU acceleration
 bool g_gpuScopeDriverEnabled = false;
 
-vector<string> g_searchPaths;
+vector<filesystem::path> g_searchPaths;
 
 void VulkanCleanup();
 
@@ -667,55 +669,47 @@ string GetDirOfCurrentExecutable()
 
 void InitializeSearchPaths()
 {
-	string binRootDir;
-	//Search in the directory of the glscopeclient binary first
-#ifdef _WIN32
-	TCHAR binPath[MAX_PATH];
-	if(GetModuleFileName(NULL, binPath, MAX_PATH) == 0)
-		LogError("Error: GetModuleFileName() failed.\n");
-	else if(!PathRemoveFileSpec(binPath) )
-		LogError("Error: PathRemoveFileSpec() failed.\n");
-	else
-	{
-		g_searchPaths.push_back(binPath);
+	//FIXME we currently assume that libscopehal and ngscopeclient are installed in the same prefix.
+	//In the future this may not always be the case. For that case, we will need to pull the install
+	// location of the lib to get its prefix.
 
-		// On mingw, binPath would typically be /mingw64/bin now
-		//and our data files in /mingw64/share. Strip back one more layer
-		// of hierarchy so we can start appending.
-		binRootDir = dirname(binPath);
+	string binPath = GetDirOfCurrentExecutable();
+
+	//On macOS, search in ~/Library/Application Support/scopehal first
+#if defined(__APPLE__)
+	const char *home = getenv("HOME");
+	if(home != nullptr) {
+		g_searchPaths.push_back(filesystem::path(home) / "/Library/Application Support/scopehal");
+		g_searchPaths.push_back(filesystem::path(home) / "/.scopehal");
 	}
+	//On Windows, search in %appdata% and %localappdata%
+#elif defined(_WIN32)
+	const char *localappdata = getenv("LOCALAPPDATA")
+	if(localappdata != nullptr) {
+		g_searchPaths.push_back(filesystem::path(localappdata) / "/scopehal");
+	}
+	const char *appdata = getenv("APPDATA")
+	if(appdata != nullptr) {
+		g_searchPaths.push_back(filesystem::path(appdata) / "/scopehal");
+	}
+	//Search the local directory on Linux/*BSD
 #else
-	binRootDir = GetDirOfCurrentExecutable();
-	if( !binRootDir.empty() )
-	{
-		g_searchPaths.push_back(binRootDir);
+	const char *home = getenv("HOME");
+	if(home != nullptr) {
+		g_searchPaths.push_back(filesystem::path(home) / "/.scopehal");
 	}
 #endif
 
-	// Add the share directories associated with the binary location
-	if(binRootDir.size() > 0)
-	{
-		g_searchPaths.push_back(binRootDir + "/share/ngscopeclient");
-		g_searchPaths.push_back(binRootDir + "/share/scopehal");
-	}
-
-	//Local directories preferred over system ones
-#ifndef _WIN32
-	string home = getenv("HOME");
-	g_searchPaths.push_back(home + "/.scopehal");
-	g_searchPaths.push_back("/usr/local/share/ngscopeclient");
-	g_searchPaths.push_back("/usr/local/share/scopehal");
-	g_searchPaths.push_back("/usr/share/ngscopeclient");
-	g_searchPaths.push_back("/usr/share/scopehal");
-
-	//for macports
-	g_searchPaths.push_back("/opt/local/share/ngscopeclient");
-	g_searchPaths.push_back("/opt/local/share/scopehal");
+	// on Windows, add the directory where scopehal is installed
+#if defined(_WIN32)
+	g_searchPaths.push_back(filesystem::path(binPath));
+#else
+	// on macOS/Linux, add the share directories associated with the binary location
+	filesystem::path installPrefixDir = std::filesystem::path(binPath).parent_path();
+	g_searchPaths.push_back(installPrefixDir / "/share/ngscopeclient");
+	g_searchPaths.push_back(installPrefixDir / "/share/scopehal");
 #endif
-
-	//TODO: add system directories for Windows (%appdata% etc)?
-	//The current strategy of searching the binary directory should work fine in the common case
-	//of installing binaries and data files all in one directory under Program Files.
+	//TODO: Add correct directories for .app-packaged program on macOS
 }
 
 /**
@@ -798,12 +792,12 @@ string FindDataFile(const string& relpath)
 
 	for(auto dir : g_searchPaths)
 	{
-		string path = dir + "/" + relpath;
-		fp = fopen(path.c_str(), "rb");
+		filesystem::path path = dir / relpath;
+		fp = fopen(path.string().c_str(), "rb");
 		if(fp)
 		{
 			fclose(fp);
-			return path;
+			return path.string();
 		}
 	}
 

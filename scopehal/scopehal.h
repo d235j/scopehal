@@ -57,6 +57,7 @@
 #include <memory>
 #include <climits>
 #include <set>
+#include <filesystem>
 #include <float.h>
 
 #include <sigc++/sigc++.h>
@@ -225,7 +226,7 @@ std::string str_replace(const std::string& search, const std::string& replace, c
 #define stos(str) static_cast<size_t>(stol(str))
 #endif
 
-extern std::vector<std::string> g_searchPaths;
+extern std::vector<std::filesystem::path> g_searchPaths;
 
 //Shader args for frequently used kernels
 struct ConvertRawSamplesShaderArgs
