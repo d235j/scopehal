@@ -44,4 +44,17 @@
 #include <memory>
 #include <utility>
 
+#include <vulkan/vulkan_raii.hpp>
+#include <vkFFT.h>
+
+#ifdef _WIN32
+//WORKAROUND Silence annoying message pragma in the yaml headers on Windows
+#define message(ignore)
+#endif
+#include <yaml-cpp/yaml.h>
+#ifdef _WIN32
+#undef message
+#endif
+
+
 #endif

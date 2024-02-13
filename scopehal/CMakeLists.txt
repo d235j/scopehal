@@ -276,13 +276,9 @@ endif()
 
 target_precompile_headers(scopehal
 PUBLIC
-
 	# C++ library headers used by vulkan and/or very widely throughout the project
+	# Vulkan, VkFFT, and yaml-cpp headers as well
 	${CMAKE_CURRENT_SOURCE_DIR}/scopehal-pch.h
-
-	${Vulkan_INCLUDE_DIR}/vulkan/vulkan_raii.hpp
-	${CMAKE_CURRENT_SOURCE_DIR}/../VkFFT/vkFFT/vkFFT.h
-	${YAML_PCH_PATH}
 	)
 
 install(TARGETS scopehal LIBRARY)
