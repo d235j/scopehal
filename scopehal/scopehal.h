@@ -57,7 +57,14 @@
 
 #include <sigc++/sigc++.h>
 
+#ifdef _WIN32
+//WORKAROUND Silence annoying message pragma in the yaml-cpp headers on Windows
+#define message(ignore)
+#endif
 #include <yaml-cpp/yaml.h>
+#ifdef _WIN32
+#undef message
+#endif
 
 #include "../log/log.h"
 #include "ScopehalUtil.h"
